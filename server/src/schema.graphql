@@ -1,14 +1,11 @@
-# import Challenge from './generated/prisma.graphql'
-# import User from './generated/prisma.graphql'
+# import User, ChallengeGroup, Challenge from "./generated/prisma.graphql"
 
 type Query {
-  posts(searchString: String): [Post!]!
-  user(id: ID!): User
+  allUsers: [User!]!
 }
 
 type Mutation {
-  createDraft(authorId: ID!, title: String!, content: String!): Post
-  publish(id: ID!): Post
-  deletePost(id: ID!): Post
-  signup(name: String!): User!
+  createUser(name: String!): User!
+  deleteUser(id: ID!): User
+  # createChallenge(title: String!, secret: String! users: User!]!): Challenge!
 }

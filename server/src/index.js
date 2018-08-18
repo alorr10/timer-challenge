@@ -1,91 +1,59 @@
-const { GraphQLServer } = require('graphql-yoga');
-const { Prisma } = require('prisma-binding');
+const { GraphQLServer } = require('graphql-yoga')
+const { Prisma } = require('prisma-binding')
 
 const resolvers = {
   Query: {
-    posts: (_, args, context, info) => {
-      return context.prisma.query.posts(
-        {
-          where: {
-            OR: [{ title_contains: args.searchString }, { content_contains: args.searchString }],
-          },
-        },
-        info
-      );
+    allUsers(parent, args, ctx, info) {
+      return ctx.db.query.users({}, info)
     },
-    user: (_, args, context, info) => {
-      return context.prisma.query.user(
-        {
-          where: {
-            id: args.id,
-          },
-        },
-        info
-      );
-    },
+    // drafts(parent, args, ctx, info) {
+    //   return ctx.db.query.posts({ where: { isPublished: false } }, info)
+    // },
+    // post(parent, { id }, ctx, info) {
+    //   return ctx.db.query.post({ where: { id } }, info)
+    // },
   },
   Mutation: {
-    createDraft: (_, args, context, info) => {
-      return context.prisma.mutation.createPost(
+    createUser(parent, { name }, ctx, info) {
+      return ctx.db.mutation.createUser(
         {
           data: {
-            title: args.title,
-            content: args.title,
-            author: {
-              connect: {
-                id: args.authorId,
-              },
-            },
+            name,
           },
         },
-        info
-      );
+        info,
+      )
     },
-    publish: (_, args, context, info) => {
-      return context.prisma.mutation.updatePost(
-        {
-          where: {
-            id: args.id,
-          },
-          data: {
-            published: true,
-          },
-        },
-        info
-      );
+    deleteUser(parent, { id }, ctx, info) {
+      return ctx.db.mutation.deleteUser({ where: { id } }, info)
     },
-    deletePost: (_, args, context, info) => {
-      return context.prisma.mutation.deletePost(
-        {
-          where: {
-            id: args.id,
-          },
-        },
-        info
-      );
-    },
-    signup: (_, args, context, info) => {
-      return context.prisma.mutation.createUser(
-        {
-          data: {
-            name: args.name,
-          },
-        },
-        info
-      );
-    },
+    // createChallengeGroup(parent, {title, secret, users }, ctx, info){
+    //   return ctx.db.mutation.createChallengeGroup(
+    //     {
+    //       data: {
+    //         title,
+    //         secret,
+    //         users: { connect: users.map(user => {id: user.id}) }
+    //       }
+    //     },
+    //     info,
+    //   )
+    // }
   },
-};
+}
 
 const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+  typeDefs: './src/schema.graphql',
   resolvers,
   context: req => ({
     ...req,
-    prisma: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'https://timer-challenge.herokuapp.com/server/dev',
+    db: new Prisma({
+      typeDefs: 'src/generated/prisma.graphql', // the auto-generated GraphQL schema of the Prisma API
+      endpoint: 'https://time-challenge.herokuapp.com', // the endpoint of the Prisma API
+      debug: true, // log all GraphQL queries & mutations sent to the Prisma API
+      // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
     }),
   }),
-});
-server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));
+})
+
+server.start(() => console.log('Server is running on http://localhost:4000'))

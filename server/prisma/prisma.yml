@@ -1,5 +1,0 @@
-endpoint: https://timer-challenge.herokuapp.com/server/dev
-datamodel: datamodel.graphql
-hooks:
-  post-deploy:
-    - graphql get-schema -p prisma

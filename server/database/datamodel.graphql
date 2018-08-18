@@ -1,0 +1,33 @@
+type User {
+  id: ID! @unique
+  name: String!
+  numTimesChallenged: Int! @default(value: 0)
+  numTimesWon: Int! @default(value: 0)
+  challengeGroups: [ChallengeGroup!]! @relation(name: "UsersInChallenge")
+  challenger: [Challenge!]! @relation(name: "ChallengingUser")
+  challengee: [Challenge!]! @relation(name: "ChallengedUser")
+  winner: [Challenge!]! @relation(name: "ChallengeWinner")
+}
+
+
+type ChallengeGroup {
+  id: ID! @unique
+  users: [User!]! @relation(name: "UsersInChallenge")
+  secret: String!
+  title: String!
+  challenges: [Challenge!]! @relation(name: "ChallengeForGroup")
+}
+
+
+type Challenge {
+  id: ID! @unique
+  group: ChallengeGroup! @relation(name: "ChallengeForGroup")
+  challengingUser: User! @relation(name: "ChallengingUser")
+  challengedUser: User! @relation(name: "ChallengedUser")
+  description: String!
+  duration: DateTime!
+  startTime: DateTime!
+  finishedTime: DateTime!
+  active: Boolean! @default(value: false)
+  winner: User @relation(name: "ChallengeWinner")
+}
