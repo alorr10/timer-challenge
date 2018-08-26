@@ -37,4 +37,19 @@ const styles = StyleSheet.create({
   },
 });
 
+Start.defaultProps = {
+  participants: [
+    {
+      id: 1,
+      name: 'Alec',
+    },
+    {
+      id: 2,
+      name: 'Austin',
+    },
+  ],
+  time: '10',
+  title: 'Austin Challenge',
+};
+
 export default Start;

@@ -12,7 +12,7 @@ class Time extends Component {
 
   chooseTime = () => {
     this.props.setTime(this.state.time);
-    this.props.navigateTo('start');
+    this.props.navigate();
   };
 
   render() {

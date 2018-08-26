@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-n
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { FontAwesome } from '@expo/vector-icons';
-const Names = ({ onSelect, isSelected, navigateTo }) => (
+const Names = ({ onSelect, isSelected, navigate }) => (
   <Query
     query={gql`
       {
@@ -47,7 +47,7 @@ const Names = ({ onSelect, isSelected, navigateTo }) => (
             ))}
           </View>
           <View>
-            <Button title="Next" onPress={() => navigateTo('time')} />
+            <Button title="Next" onPress={navigate} />
           </View>
         </View>
       );

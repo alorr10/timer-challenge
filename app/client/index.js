@@ -3,8 +3,8 @@ import { getMainDefinition } from 'apollo-utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { WebSocketLink } from 'apollo-link-ws';
 
-const graphqlEndpoint = 'https://timer-challenge.herokuapp.com/server/dev';
-const subscriptionEndpoint = 'wss://timer-challenge.herokuapp.com/server/dev';
+const graphqlEndpoint = 'https://time-challenge.herokuapp.com';
+const subscriptionEndpoint = 'wss://time-challenge.herokuapp.com';
 
 const wsLink = new WebSocketLink({
   uri: subscriptionEndpoint,

@@ -1,10 +1,10 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
+const { GraphQLServer } = require('graphql-yoga');
+const { Prisma } = require('prisma-binding');
 
 const resolvers = {
   Query: {
-    allUsers(parent, args, ctx, info) {
-      return ctx.db.query.users({}, info)
+    users(parent, args, ctx, info) {
+      return ctx.db.query.users({}, info);
     },
     // drafts(parent, args, ctx, info) {
     //   return ctx.db.query.posts({ where: { isPublished: false } }, info)
@@ -21,11 +21,11 @@ const resolvers = {
             name,
           },
         },
-        info,
-      )
+        info
+      );
     },
     deleteUser(parent, { id }, ctx, info) {
-      return ctx.db.mutation.deleteUser({ where: { id } }, info)
+      return ctx.db.mutation.deleteUser({ where: { id } }, info);
     },
     // createChallengeGroup(parent, {title, secret, users }, ctx, info){
     //   return ctx.db.mutation.createChallengeGroup(
@@ -40,7 +40,7 @@ const resolvers = {
     //   )
     // }
   },
-}
+};
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
@@ -54,6 +54,6 @@ const server = new GraphQLServer({
       // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
     }),
   }),
-})
+});
 
-server.start(() => console.log('Server is running on http://localhost:4000'))
+server.start(() => console.log('Server is running on http://localhost:4000'));
