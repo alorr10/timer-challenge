@@ -1,10 +1,18 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 import ChooseParticipants from './CreateChallenge/ChooseParticipants';
 import ChooseTime from './CreateChallenge/ChooseTime';
 import StartChallenge from './CreateChallenge/StartChallenge';
-import ViewChallenge from './ViewChallenge/ViewChallenge';
+import ViewChallengeGroups from './ViewChallenge/ViewChallengeGroups';
+import LoginScreen from './Authentication/LoginScreen';
+import AuthLoadingScreen from './Authentication/AuthLoadingScreen';
+
+const AuthStack = createStackNavigator({ Login: LoginScreen });
 
 const CreateChallengeStack = createStackNavigator({
   participants: ChooseParticipants,
@@ -12,7 +20,18 @@ const CreateChallengeStack = createStackNavigator({
   start: StartChallenge,
 });
 
-export default createBottomTabNavigator({
-  View: ViewChallenge,
+const AppStack = createBottomTabNavigator({
+  View: ViewChallengeGroups,
   CreateChallenge: CreateChallengeStack,
 });
+
+export default createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+);

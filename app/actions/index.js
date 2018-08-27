@@ -1,4 +1,5 @@
 import { TOGGLE_CHALLENGE_CONTAINER, SET_CURRENT_CHALLENGE, RESET_CHALLENGE } from './types';
+export * from './Authentication';
 
 export const toggleChallengeContainer = isOpen => {
   return {

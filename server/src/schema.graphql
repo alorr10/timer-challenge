@@ -2,6 +2,7 @@
 
 type Query {
   users: [User!]!
+  userExists(facebookId: String!): [User!]!
 }
 
 type Mutation {

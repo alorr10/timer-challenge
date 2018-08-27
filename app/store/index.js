@@ -29,7 +29,7 @@ let store = {};
 let persistor = {};
 
 if (__DEV__) {
-  store = createStore(pReducer, {}, applyMiddleware(thunk, logger));
+  store = createStore(pReducer, {}, applyMiddleware(thunk));
 } else {
   store = createStore(pReducer, {}, applyMiddleware(thunk));
 }

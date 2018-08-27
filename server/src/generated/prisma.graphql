@@ -1,5 +1,5 @@
 # source: https://time-challenge.herokuapp.com
-# timestamp: Sat Aug 18 2018 00:19:38 GMT-0700 (PDT)
+# timestamp: Sun Aug 26 2018 19:05:46 GMT-0700 (Pacific Daylight Time)
 
 type AggregateChallenge {
   count: Int!
@@ -888,6 +888,7 @@ type Subscription {
 type User implements Node {
   id: ID!
   name: String!
+  facebookId: String
   numTimesChallenged: Int!
   numTimesWon: Int!
   challengeGroups(where: ChallengeGroupWhereInput, orderBy: ChallengeGroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChallengeGroup!]
@@ -908,6 +909,7 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupCreateManyWithoutUsersInput
@@ -938,6 +940,7 @@ input UserCreateOneWithoutWinnerInput {
 
 input UserCreateWithoutChallengeeInput {
   name: String!
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupCreateManyWithoutUsersInput
@@ -947,6 +950,7 @@ input UserCreateWithoutChallengeeInput {
 
 input UserCreateWithoutChallengeGroupsInput {
   name: String!
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challenger: ChallengeCreateManyWithoutChallengingUserInput
@@ -956,6 +960,7 @@ input UserCreateWithoutChallengeGroupsInput {
 
 input UserCreateWithoutChallengerInput {
   name: String!
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupCreateManyWithoutUsersInput
@@ -965,6 +970,7 @@ input UserCreateWithoutChallengerInput {
 
 input UserCreateWithoutWinnerInput {
   name: String!
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupCreateManyWithoutUsersInput
@@ -986,6 +992,8 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  facebookId_ASC
+  facebookId_DESC
   numTimesChallenged_ASC
   numTimesChallenged_DESC
   numTimesWon_ASC
@@ -999,6 +1007,7 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   name: String!
+  facebookId: String
   numTimesChallenged: Int!
   numTimesWon: Int!
 }
@@ -1044,6 +1053,7 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupUpdateManyWithoutUsersInput
@@ -1088,6 +1098,7 @@ input UserUpdateOneWithoutWinnerInput {
 
 input UserUpdateWithoutChallengeeDataInput {
   name: String
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupUpdateManyWithoutUsersInput
@@ -1097,6 +1108,7 @@ input UserUpdateWithoutChallengeeDataInput {
 
 input UserUpdateWithoutChallengeGroupsDataInput {
   name: String
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challenger: ChallengeUpdateManyWithoutChallengingUserInput
@@ -1106,6 +1118,7 @@ input UserUpdateWithoutChallengeGroupsDataInput {
 
 input UserUpdateWithoutChallengerDataInput {
   name: String
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupUpdateManyWithoutUsersInput
@@ -1115,6 +1128,7 @@ input UserUpdateWithoutChallengerDataInput {
 
 input UserUpdateWithoutWinnerDataInput {
   name: String
+  facebookId: String
   numTimesChallenged: Int
   numTimesWon: Int
   challengeGroups: ChallengeGroupUpdateManyWithoutUsersInput
@@ -1237,6 +1251,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  facebookId: String
+
+  """All values that are not equal to given value."""
+  facebookId_not: String
+
+  """All values that are contained in given list."""
+  facebookId_in: [String!]
+
+  """All values that are not contained in given list."""
+  facebookId_not_in: [String!]
+
+  """All values less than the given value."""
+  facebookId_lt: String
+
+  """All values less than or equal the given value."""
+  facebookId_lte: String
+
+  """All values greater than the given value."""
+  facebookId_gt: String
+
+  """All values greater than or equal the given value."""
+  facebookId_gte: String
+
+  """All values containing the given string."""
+  facebookId_contains: String
+
+  """All values not containing the given string."""
+  facebookId_not_contains: String
+
+  """All values starting with the given string."""
+  facebookId_starts_with: String
+
+  """All values not starting with the given string."""
+  facebookId_not_starts_with: String
+
+  """All values ending with the given string."""
+  facebookId_ends_with: String
+
+  """All values not ending with the given string."""
+  facebookId_not_ends_with: String
   numTimesChallenged: Int
 
   """All values that are not equal to given value."""

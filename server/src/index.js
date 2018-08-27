@@ -6,6 +6,16 @@ const resolvers = {
     users(parent, args, ctx, info) {
       return ctx.db.query.users({}, info);
     },
+    userExists: (parent, args, ctx, info) => {
+      return ctx.db.query.users(
+        {
+          where: {
+            facebookId_contains: args.facebookId,
+          },
+        },
+        info
+      );
+    },
     // drafts(parent, args, ctx, info) {
     //   return ctx.db.query.posts({ where: { isPublished: false } }, info)
     // },

@@ -1,6 +1,7 @@
 type User {
   id: ID! @unique
   name: String!
+  facebookId: String!
   numTimesChallenged: Int! @default(value: 0)
   numTimesWon: Int! @default(value: 0)
   challengeGroups: [ChallengeGroup!]! @relation(name: "UsersInChallenge")
@@ -9,7 +10,6 @@ type User {
   winner: [Challenge!]! @relation(name: "ChallengeWinner")
 }
 
-
 type ChallengeGroup {
   id: ID! @unique
   users: [User!]! @relation(name: "UsersInChallenge")
@@ -17,7 +17,6 @@ type ChallengeGroup {
   title: String!
   challenges: [Challenge!]! @relation(name: "ChallengeForGroup")
 }
-
 
 type Challenge {
   id: ID! @unique
