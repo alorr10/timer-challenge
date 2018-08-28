@@ -20,15 +20,41 @@ const userExistsQuery = gql`
 `;
 
 const createOrUpdateUser = async (id, name) => {
-  console.log(id, name);
   try {
-    const data = await client.query({
+    const { data: { users } } = await client.query({
       query: userExistsQuery,
       variables: {
         facebookId: id,
       },
     });
-    console.log(data);
+    console.log(users);
+    if (!users.length) {
+      createUser(id, name);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createUserMutation = gql`
+  mutation($name: String!, $facebookId: String!) {
+    createUser(data: { name: $name, facebookId: $facebookId }) {
+      name
+      id
+    }
+  }
+`;
+
+const createUser = async (id, name) => {
+  console.log('here');
+  try {
+    const data = await client.mutate({
+      mutation: createUserMutation,
+      variables: {
+        name,
+        facebookId: id,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
