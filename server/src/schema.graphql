@@ -2,7 +2,7 @@
 
 type Query {
   users: [User!]!
-  userExists(facebookId: String!): [User!]!
+  userExists(facebookId: String!): Boolean!
 }
 
 type Mutation {

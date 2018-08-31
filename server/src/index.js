@@ -7,14 +7,15 @@ const resolvers = {
       return ctx.db.query.users({}, info);
     },
     userExists: (parent, args, ctx, info) => {
-      return ctx.db.query.users(
+      const userExists = ctx.db.query.user(
         {
           where: {
-            facebookId_contains: args.facebookId,
+            facebookId: args.facebookId,
           },
         },
         info
       );
+      return userExists !== null;
     },
     // drafts(parent, args, ctx, info) {
     //   return ctx.db.query.posts({ where: { isPublished: false } }, info)
